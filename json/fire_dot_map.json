@@ -1,17 +1,12 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-
   "title": "Bushfire Locations in Australia",
-
   "width": 800,
   "height": 500,
-
   "projection": {
     "type": "mercator"
   },
-
   "layer": [
-
     {
       "data": {
         "url": "data/australia_states.geojson",
@@ -20,44 +15,31 @@
           "property": "features"
         }
       },
-
       "mark": {
         "type": "geoshape",
         "fill": "#e6e6e6",
         "stroke": "white"
       }
     },
-
     {
       "data": {
         "url": "data/fire.csv"
       },
-
       "mark": {
         "type": "circle",
-        "opacity": 0.5,
-        "size": 40
+        "color": "#4C78A8",
+        "opacity": 0.45,
+        "size": 35
       },
-
       "encoding": {
-
         "longitude": {
           "field": "longitude",
           "type": "quantitative"
         },
-
         "latitude": {
           "field": "latitude",
           "type": "quantitative"
         },
-
-  
-        "color": {
-          "field": "frp",
-          "type": "quantitative",
-          "title": "Fire Intensity"
-        },
-
         "tooltip": [
           {
             "field": "latitude",
@@ -69,11 +51,13 @@
           },
           {
             "field": "frp",
-            "type": "quantitative"
+            "type": "quantitative",
+            "title": "Fire Radiative Power"
           },
           {
             "field": "acq_date",
-            "type": "nominal"
+            "type": "nominal",
+            "title": "Date"
           }
         ]
       }
