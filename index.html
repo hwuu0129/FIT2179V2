@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>FIT2179V2</title>
 
@@ -9,15 +10,33 @@
 </head>
 
 <body>
+
   <h1>Bushfires and Air Pollution in Australia</h1>
 
   <h2>1. Bushfire Locations in Australia</h2>
-  <p>This dot map shows detected bushfire locations across Australia.</p>
+
+  <p>
+    This dot map shows detected bushfire locations across Australia.
+  </p>
 
   <div id="fire_dot_map"></div>
 
   <script>
     vegaEmbed("#fire_dot_map", "json/fire_dot_map.json");
   </script>
+
+  <h2>2. Fire Intensity Across Australia</h2>
+
+  <p>
+    This proportional symbol map shows fire intensity using Fire Radiative Power (FRP). Larger and darker circles indicate stronger fire activity.
+  </p>
+
+  <div id="fire_intensity_map"></div>
+
+  <script>
+    vegaEmbed("#fire_intensity_map", "json/fire_intensity_map.json");
+  </script>
+
 </body>
+
 </html>
