@@ -1,0 +1,86 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "title": "Bushfire Locations in Australia",
+
+  "width": 800,
+  "height": 500,
+
+  "projection": {
+    "type": "mercator"
+  },
+
+  "layer": [
+
+    {
+      "data": {
+        "url": "data/australia_states.geojson",
+        "format": {
+          "type": "json",
+          "property": "features"
+        }
+      },
+
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e6e6e6",
+        "stroke": "white"
+      }
+    },
+
+    {
+      "data": {
+        "url": "data/fire.csv"
+      },
+
+      "mark": {
+        "type": "circle",
+        "opacity": 0.5
+      },
+
+      "encoding": {
+
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+
+        "size": {
+          "field": "frp",
+          "type": "quantitative",
+          "title": "Fire Intensity"
+        },
+
+        "color": {
+          "field": "frp",
+          "type": "quantitative",
+          "title": "Fire Intensity"
+        },
+
+        "tooltip": [
+          {
+            "field": "latitude",
+            "type": "quantitative"
+          },
+          {
+            "field": "longitude",
+            "type": "quantitative"
+          },
+          {
+            "field": "frp",
+            "type": "quantitative"
+          },
+          {
+            "field": "acq_date",
+            "type": "nominal"
+          }
+        ]
+      }
+    }
+  ]
+}
