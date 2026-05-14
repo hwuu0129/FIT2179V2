@@ -1,17 +1,12 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-
   "title": "Global Bushfire Activity",
-
   "width": 1000,
   "height": 500,
-
   "projection": {
     "type": "equalEarth"
   },
-
   "layer": [
-
     {
       "data": {
         "url": "https://vega.github.io/vega-datasets/data/world-110m.json",
@@ -20,38 +15,34 @@
           "feature": "countries"
         }
       },
-
       "mark": {
         "type": "geoshape",
         "fill": "#e6e6e6",
         "stroke": "white"
       }
     },
-
     {
       "data": {
-        "url": "../data/Global_fire.csv"
+        "url": "data/Global_fire.csv",
+        "format": {
+          "type": "csv"
+        }
       },
-
       "mark": {
         "type": "circle",
         "color": "#D95F02",
         "opacity": 0.4,
         "size": 18
       },
-
       "encoding": {
-
         "longitude": {
           "field": "longitude",
           "type": "quantitative"
         },
-
         "latitude": {
           "field": "latitude",
           "type": "quantitative"
         },
-
         "tooltip": [
           {
             "field": "latitude",
