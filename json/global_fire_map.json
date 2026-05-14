@@ -30,14 +30,14 @@
 
     {
       "data": {
-        "url": "data/global_fire.csv"
+        "url": "../data/global_fire.csv"
       },
 
       "mark": {
         "type": "circle",
         "color": "#D95F02",
-        "opacity": 0.35,
-        "size": 12
+        "opacity": 0.4,
+        "size": 18
       },
 
       "encoding": {
@@ -54,9 +54,19 @@
 
         "tooltip": [
           {
+            "field": "latitude",
+            "type": "quantitative",
+            "title": "Latitude"
+          },
+          {
+            "field": "longitude",
+            "type": "quantitative",
+            "title": "Longitude"
+          },
+          {
             "field": "frp",
             "type": "quantitative",
-            "title": "Fire Intensity"
+            "title": "Fire Radiative Power"
           },
           {
             "field": "acq_date",
