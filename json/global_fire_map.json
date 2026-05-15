@@ -21,51 +21,44 @@
         "stroke": "white"
       }
     },
-    {
-      "data": {
-        "url": "data/Global_fire.csv",
-        "format": {
-          "type": "csv"
-        }
-      },
-      "mark": {
-        "type": "circle",
-        "color": "#D95F02",
-        "opacity": 0.4,
-        "size": 18
-      },
-      "encoding": {
-        "longitude": {
-          "field": "longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "latitude",
-          "type": "quantitative"
-        },
-        "tooltip": [
-          {
-            "field": "latitude",
-            "type": "quantitative",
-            "title": "Latitude"
-          },
-          {
-            "field": "longitude",
-            "type": "quantitative",
-            "title": "Longitude"
-          },
-          {
-            "field": "frp",
-            "type": "quantitative",
-            "title": "Fire Radiative Power"
-          },
-          {
-            "field": "acq_date",
-            "type": "nominal",
-            "title": "Date"
-          }
-        ]
-      }
+   {
+  "data": {
+    "url": "data/Global_fire.csv",
+    "format": {
+      "type": "csv"
     }
-  ]
+  },
+  "transform": [
+    {
+      "calculate": "toNumber(datum.longitude)",
+      "as": "longitude_num"
+    },
+    {
+      "calculate": "toNumber(datum.latitude)",
+      "as": "latitude_num"
+    }
+  ],
+  "mark": {
+    "type": "circle",
+    "color": "#D95F02",
+    "opacity": 0.6,
+    "size": 30
+  },
+  "encoding": {
+    "longitude": {
+      "field": "longitude_num",
+      "type": "quantitative"
+    },
+    "latitude": {
+      "field": "latitude_num",
+      "type": "quantitative"
+    },
+    "tooltip": [
+      {"field": "latitude", "title": "Latitude"},
+      {"field": "longitude", "title": "Longitude"},
+      {"field": "frp", "title": "FRP"},
+      {"field": "acq_date", "title": "Date"}
+    ]
+  }
 }
+ 
