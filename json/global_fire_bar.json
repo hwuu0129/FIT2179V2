@@ -1,1 +1,31 @@
 
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Top 20 Countries by Bushfire Activity",
+  "width": 600,
+  "height": 400,
+  "data": {
+    "url": "data/global_fire_by_country.csv"
+  },
+  "mark": {
+    "type": "bar",
+    "color": "#D95F02"
+  },
+  "encoding": {
+    "x": {
+      "field": "fire_count",
+      "type": "quantitative",
+      "title": "Number of Fire Detections"
+    },
+    "y": {
+      "field": "country",
+      "type": "nominal",
+      "sort": "-x",
+      "title": "Country"
+    },
+    "tooltip": [
+      { "field": "country", "type": "nominal", "title": "Country" },
+      { "field": "fire_count", "type": "quantitative", "title": "Fire Count" }
+    ]
+  }
+}
