@@ -9,40 +9,36 @@
   "projection": {
     "type": "mercator"
   },
-  "layer": [
+  "data": {
+    "url": "data/australia_states.geojson",
+    "format": {"type": "json", "property": "features"}
+  },
+  "transform": [
     {
-      "data": {
-        "url": "data/australia_states.geojson",
-        "format": {"type": "json"}
-      },
-      "transform": [
-        {
-          "lookup": "properties.STATE_NAME",
-          "from": {
-            "data": {"url": "data/australia_fire_by_state.csv"},
-            "key": "STATE_NAME",
-            "fields": ["fire_count", "avg_frp"]
-          }
-        }
-      ],
-      "mark": {
-        "type": "geoshape",
-        "stroke": "white",
-        "strokeWidth": 1
-      },
-      "encoding": {
-        "color": {
-          "field": "fire_count",
-          "type": "quantitative",
-          "scale": {"scheme": "orangered"},
-          "title": "Fire Detections"
-        },
-        "tooltip": [
-          {"field": "properties.STATE_NAME", "type": "nominal", "title": "State"},
-          {"field": "fire_count", "type": "quantitative", "title": "Fire Count"},
-          {"field": "avg_frp", "type": "quantitative", "title": "Avg FRP (MW)", "format": ".1f"}
-        ]
+      "lookup": "properties.STATE_NAME",
+      "from": {
+        "data": {"url": "data/australia_fire_by_state.csv"},
+        "key": "STATE_NAME",
+        "fields": ["fire_count", "avg_frp"]
       }
     }
-  ]
+  ],
+  "mark": {
+    "type": "geoshape",
+    "stroke": "white",
+    "strokeWidth": 1
+  },
+  "encoding": {
+    "color": {
+      "field": "fire_count",
+      "type": "quantitative",
+      "scale": {"scheme": "orangered"},
+      "title": "Fire Detections"
+    },
+    "tooltip": [
+      {"field": "properties.STATE_NAME", "type": "nominal", "title": "State"},
+      {"field": "fire_count", "type": "quantitative", "title": "Fire Count"},
+      {"field": "avg_frp", "type": "quantitative", "title": "Avg FRP (MW)", "format": ".1f"}
+    ]
+  }
 }
