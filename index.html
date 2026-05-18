@@ -1,76 +1,66 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>FIT2179V2</title>
-
+  <title>Bushfires and Air Pollution in Australia</title>
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 </head>
-
 <body>
-
   <h1>Bushfires and Air Pollution in Australia</h1>
 
-  <h2>1. Bushfire Locations in Australia</h2>
-
-  <p>
-    This dot map shows detected bushfire locations across Australia.
-  </p>
-
-  <div id="fire_dot_map"></div>
-
-  <script>
-    vegaEmbed("#fire_dot_map", "json/fire_dot_map.json");
-  </script>
-
-  <h2>2. Fire Intensity Across Australia</h2>
-
-  <p>
-    This proportional symbol map shows fire intensity using Fire Radiative Power (FRP). Larger and darker circles indicate stronger fire activity.
-  </p>
-
-  <div id="fire_intensity_map"></div>
-
-  <script>
-    vegaEmbed("#fire_intensity_map", "json/fire_intensity_map.json");
-  </script>
-
+  <!-- SECTION 1: GLOBAL -->
   <h2>1. Global Bushfire Activity</h2>
+  <p>Bushfires are a global crisis. The map below shows recent fire hotspots detected around the world.</p>
+  <div id="global_fire_map"></div>
+  <script>vegaEmbed("#global_fire_map", "json/global_fire_map.json");</script>
 
-<p>
-This global map shows recent bushfire hotspots detected around the world.
-</p>
+  <h2>2. Global Bushfire Activity by Country</h2>
+  <p>Australia ranks first globally in high-confidence fire detections, ahead of Russia and Mexico.</p>
+  <div id="global_fire_bar"></div>
+  <script>vegaEmbed("#global_fire_bar", "json/global_fire_bar.json");</script>
 
-<div id="global_fire_map"></div>
+  <!-- SECTION 2: AUSTRALIA -->
+  <h2>3. Bushfire Locations in Australia</h2>
+  <p>This dot map shows detected bushfire locations across Australia from March to May 2026.</p>
+  <div id="fire_dot_map"></div>
+  <script>vegaEmbed("#fire_dot_map", "json/fire_dot_map.json");</script>
 
-<script>
-  vegaEmbed("#global_fire_map", "json/global_fire_map.json");
-</script>
+  <h2>4. Fire Intensity Across Australia</h2>
+  <p>This proportional symbol map shows fire intensity using Fire Radiative Power (FRP). Larger and darker circles indicate stronger fire activity.</p>
+  <div id="fire_intensity_map"></div>
+  <script>vegaEmbed("#fire_intensity_map", "json/fire_intensity_map.json");</script>
 
-  <h2>Global Bushfire Activity by Country</h2>
-<div id="global_fire_bar"></div>
-<script>
-  vegaEmbed("#global_fire_bar", "json/global_fire_bar.json");
-</script>
-  <h2>Daily Bushfire Detections in Australia</h2>
-<p>This chart shows the number of fire detections per day across Australia from March to May 2026.</p>
-<div id="australia_fire_daily"></div>
-<script>
-  vegaEmbed("#australia_fire_daily", "json/australia_fire_daily.json");
-</script>
+  <h2>5. Bushfire Detections by State</h2>
+  <p>Western Australia and the Northern Territory recorded the highest number of fire detections.</p>
+  <div id="australia_choropleth"></div>
+  <script>vegaEmbed("#australia_choropleth", "json/australia_choropleth.json");</script>
 
-  <h2>Bushfire Detections by State</h2>
-<p>Western Australia and the Northern Territory recorded the highest number of fire detections.</p>
-<div id="australia_choropleth"></div>
-<script>
-  vegaEmbed("#australia_choropleth", "json/australia_choropleth.json");
-</script>
-
+  <h2>6. Total Fire Detections by State</h2>
+  <p>Western Australia alone accounted for over 88,000 fire detections — more than double all other states combined.</p>
   <div id="australia_fire_bar"></div>
-<script>vegaEmbed("#australia_fire_bar", "json/australia_fire_bar.json");</script>
-  
-</body>
+  <script>vegaEmbed("#australia_fire_bar", "json/australia_fire_bar.json");</script>
 
+  <!-- SECTION 3: TIME -->
+  <h2>7. Daily Bushfire Detections in Australia</h2>
+  <p>Fire activity peaked on 7 May 2026 with 8,154 detections in a single day.</p>
+  <div id="australia_fire_daily"></div>
+  <script>vegaEmbed("#australia_fire_daily", "json/australia_fire_daily.json");</script>
+
+  <h2>8. Daily Fire Detections by State</h2>
+  <p>Each panel shows the daily fire trend for one state. Western Australia dominates throughout the period.</p>
+  <div id="australia_fire_small_multiples"></div>
+  <script>vegaEmbed("#australia_fire_small_multiples", "json/australia_fire_small_multiples.json");</script>
+
+  <h2>9. Monthly Fire Detections by State</h2>
+  <p>This heatmap shows how fire activity varied across states and months.</p>
+  <div id="australia_fire_heatmap"></div>
+  <script>vegaEmbed("#australia_fire_heatmap", "json/australia_fire_heatmap.json");</script>
+
+  <h2>10. Global Fire Activity – Interactive Timeline</h2>
+  <p>Select a time range on the chart below to filter fire locations on the map.</p>
+  <div id="global_fire_linked"></div>
+  <script>vegaEmbed("#global_fire_linked", "json/global_fire_linked.json");</script>
+
+</body>
 </html>
