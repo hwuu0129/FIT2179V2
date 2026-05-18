@@ -1,0 +1,35 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Global Bushfire Activity – Interactive",
+  "data": {"url": "data/Global_fire.csv"},
+  "vconcat": [
+    {
+      "width": 700, "height": 350,
+      "projection": {"type": "equalEarth"},
+      "layer": [
+        {
+          "data": {"url": "https://vega.github.io/vega-datasets/data/world-110m.json", "format": {"type": "topojson", "feature": "countries"}},
+          "mark": {"type": "geoshape", "fill": "#e6e6e6", "stroke": "white"}
+        },
+        {
+          "transform": [{"filter": {"param": "brush"}}],
+          "mark": {"type": "circle", "color": "#D95F02", "opacity": 0.5, "size": 8},
+          "encoding": {
+            "longitude": {"field": "longitude", "type": "quantitative"},
+            "latitude": {"field": "latitude", "type": "quantitative"}
+          }
+        }
+      ]
+    },
+    {
+      "width": 700, "height": 100,
+      "data": {"url": "data/global_fire_daily.csv"},
+      "params": [{"name": "brush", "select": {"type": "interval", "encodings": ["x"]}}],
+      "mark": {"type": "line", "color": "#D95F02"},
+      "encoding": {
+        "x": {"field": "date", "type": "temporal", "title": "Select a time range to filter the map"},
+        "y": {"field": "fire_count", "type": "quantitative", "title": "Daily Count"}
+      }
+    }
+  ]
+}
