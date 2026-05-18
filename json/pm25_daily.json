@@ -1,0 +1,21 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Daily PM2.5 Levels Across Victoria",
+    "subtitle": "2024, EPA Victoria monitoring stations"
+  },
+  "width": 700,
+  "height": 300,
+  "data": {"url": "data/victoria_pm25_daily.csv"},
+  "mark": {"type": "line", "opacity": 0.7},
+  "encoding": {
+    "x": {"field": "date", "type": "temporal", "title": "Date", "axis": {"format": "%b"}},
+    "y": {"field": "pm25", "type": "quantitative", "title": "PM2.5 (μg/m³)"},
+    "color": {"field": "location_name", "type": "nominal", "title": "Station"},
+    "tooltip": [
+      {"field": "date", "type": "temporal", "title": "Date", "format": "%Y-%m-%d"},
+      {"field": "location_name", "title": "Station"},
+      {"field": "pm25", "title": "PM2.5 (μg/m³)", "format": ".1f"}
+    ]
+  }
+}
