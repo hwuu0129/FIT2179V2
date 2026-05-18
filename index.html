@@ -1,26 +1,101 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bushfires and Air Pollution in Australia</title>
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #ffffff;
+      color: #222222;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 24px 80px 24px;
+    }
+    h1 {
+      font-family: 'Merriweather', serif;
+      font-size: 2.4em;
+      color: #B22222;
+      border-bottom: 3px solid #D95F02;
+      padding-bottom: 16px;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      font-size: 1.05em;
+      color: #555;
+      margin-bottom: 50px;
+      line-height: 1.7;
+    }
+    h2 {
+      font-family: 'Merriweather', serif;
+      font-size: 1.5em;
+      color: #222;
+      margin-top: 60px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 1em;
+      line-height: 1.75;
+      color: #444;
+      max-width: 750px;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: 0.8em;
+      font-weight: bold;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #D95F02;
+      margin-top: 60px;
+      margin-bottom: 4px;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 60px 0;
+    }
+    footer {
+      margin-top: 80px;
+      padding-top: 24px;
+      border-top: 1px solid #ddd;
+      font-size: 0.85em;
+      color: #888;
+      line-height: 1.8;
+    }
+    footer a {
+      color: #D95F02;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
-  <h1>Bushfires and Air Pollution in Australia</h1>
 
-  <!-- SECTION 1: GLOBAL -->
+  <h1>Bushfires and Air Pollution in Australia</h1>
+  <p class="subtitle">Australia ranks first globally in bushfire activity. This visualisation explores fire hotspots, their geographic distribution, and the impact on air quality across the country.</p>
+
+  <!-- SECTION 1 -->
+  <div class="section-title">Section 1 — Global Context</div>
+
   <h2>1. Global Bushfire Activity</h2>
-  <p>Bushfires are a global crisis. The map below shows recent fire hotspots detected around the world.</p>
+  <p>Bushfires are a global crisis. The map below shows recent fire hotspots detected around the world using NASA VIIRS satellite data.</p>
   <div id="global_fire_map"></div>
   <script>vegaEmbed("#global_fire_map", "json/global_fire_map.json");</script>
 
   <h2>2. Global Bushfire Activity by Country</h2>
-  <p>Australia ranks first globally in high-confidence fire detections, ahead of Russia and Mexico.</p>
+  <p>Australia recorded the highest number of high-confidence fire detections globally, ahead of Russia and Mexico.</p>
   <div id="global_fire_bar"></div>
   <script>vegaEmbed("#global_fire_bar", "json/global_fire_bar.json");</script>
 
-  <!-- SECTION 2: AUSTRALIA -->
+  <hr>
+
+  <!-- SECTION 2 -->
+  <div class="section-title">Section 2 — Australia's Bushfire Landscape</div>
+
   <h2>3. Bushfire Locations in Australia</h2>
   <p>This dot map shows detected bushfire locations across Australia from March to May 2026.</p>
   <div id="fire_dot_map"></div>
@@ -41,9 +116,13 @@
   <div id="australia_fire_bar"></div>
   <script>vegaEmbed("#australia_fire_bar", "json/australia_fire_bar.json");</script>
 
-  <!-- SECTION 3: TIME -->
+  <hr>
+
+  <!-- SECTION 3 -->
+  <div class="section-title">Section 3 — Fire Activity Over Time</div>
+
   <h2>7. Daily Bushfire Detections in Australia</h2>
-  <p>Fire activity peaked on 7 May 2026 with 8,154 detections in a single day.</p>
+  <p>Fire activity peaked on 7 May 2026 with 8,154 detections in a single day — a 16-fold increase from early March levels.</p>
   <div id="australia_fire_daily"></div>
   <script>vegaEmbed("#australia_fire_daily", "json/australia_fire_daily.json");</script>
 
@@ -53,21 +132,37 @@
   <script>vegaEmbed("#australia_fire_small_multiples", "json/australia_fire_small_multiples.json");</script>
 
   <h2>9. Monthly Fire Detections by State</h2>
-  <p>This heatmap shows how fire activity varied across states and months.</p>
+  <p>This heatmap shows how fire activity varied across states and months. Western Australia's April surge is the most severe episode of the period.</p>
   <div id="australia_fire_heatmap"></div>
   <script>vegaEmbed("#australia_fire_heatmap", "json/australia_fire_heatmap.json");</script>
 
+  <hr>
 
+  <!-- SECTION 4 -->
+  <div class="section-title">Section 4 — Air Pollution Impact</div>
+
+  <h2>10. Monthly Average PM2.5 by Station</h2>
+  <p>PM2.5 levels across Victorian monitoring stations peak in autumn months (March–May), coinciding with peak bushfire season. White cells indicate missing data due to equipment maintenance.</p>
+  <div id="pm25_heatmap"></div>
+  <script>vegaEmbed("#pm25_heatmap", "json/pm25_heatmap.json");</script>
 
   <h2>11. Daily PM2.5 Levels Across Victoria</h2>
-<p>Air quality monitoring across Victoria in 2024 shows PM2.5 levels peaking in winter months, consistent with increased fire activity and cold air trapping pollutants.</p>
-<div id="pm25_daily"></div>
-<script>vegaEmbed("#pm25_daily", "json/pm25_daily.json");</script>
+  <p>Daily PM2.5 readings from EPA Victoria monitoring stations throughout 2024 show elevated pollution levels during bushfire-prone periods. Hover over the lines to explore individual station readings.</p>
+  <div id="pm25_daily"></div>
+  <script>vegaEmbed("#pm25_daily", "json/pm25_daily.json");</script>
 
-<h2>12. Monthly Average PM2.5 by Station</h2>
-<p>This heatmap reveals seasonal patterns in fine particle pollution across Victorian monitoring stations.</p>
-<div id="pm25_heatmap"></div>
-<script>vegaEmbed("#pm25_heatmap", "json/pm25_heatmap.json");</script>
+  <!-- 页脚 -->
+  <footer>
+    <strong>Data Sources:</strong><br>
+    Fire data: NASA VIIRS C2 NRT, SUOMI satellite, 2026.
+    <a href="https://firms.modaps.eosdis.nasa.gov/" target="_blank">firms.modaps.eosdis.nasa.gov</a><br>
+    Air quality data: EPA Victoria, Air Quality Monitoring Hourly Averages, 2024.
+    <a href="https://data.gov.au/data/dataset/epa-air-watch-all-sites-air-quality-hourly-averages-yearly" target="_blank">data.gov.au</a><br>
+    World boundaries: Natural Earth via Vega datasets.<br>
+    Australia state boundaries: Australian Bureau of Statistics.<br><br>
+    <strong>Author:</strong> 【HAIYI WU] &nbsp;|&nbsp; FIT2179 Data Visualisation, Monash University &nbsp;|&nbsp; May 2026<br>
+    
+  </footer>
 
 </body>
 </html>
