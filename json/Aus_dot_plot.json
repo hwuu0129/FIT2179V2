@@ -8,22 +8,8 @@
     "fontWeight": "bold"
   },
   "data": {
-    "url": "data/Australian_fixed.csv"
+    "url": "data/aus_daily.csv"
   },
-  "transform": [
-    {
-      "timeUnit": "yearmonthdate",
-      "field": "acq_date",
-      "as": "date"
-    },
-    {
-      "aggregate": [
-        {"op": "count", "as": "fire_count"},
-        {"op": "mean",  "field": "frp", "as": "avg_frp"}
-      ],
-      "groupby": ["date"]
-    }
-  ],
   "layer": [
     {
       "mark": {
@@ -50,7 +36,7 @@
       "mark": {
         "type": "point",
         "filled": true,
-        "size": 60
+        "size": 70
       },
       "encoding": {
         "x": {
@@ -71,9 +57,9 @@
           "scale": {"scheme": "oranges"}
         },
         "tooltip": [
-          {"field": "date",       "type": "temporal",      "title": "Date",           "format": "%Y-%m-%d"},
-          {"field": "fire_count", "type": "quantitative",  "title": "Fire Detections"},
-          {"field": "avg_frp",    "type": "quantitative",  "title": "Avg FRP (MW)",   "format": ".2f"}
+          {"field": "date",       "type": "temporal",     "title": "Date",            "format": "%Y-%m-%d"},
+          {"field": "fire_count", "type": "quantitative", "title": "Fire Detections", "format": ","},
+          {"field": "avg_frp",    "type": "quantitative", "title": "Avg FRP (MW)",    "format": ".2f"}
         ]
       }
     }
