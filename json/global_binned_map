@@ -14,44 +14,33 @@
   "spec": {
     "width": 280,
     "height": 140,
-    "layer": [
-      {
-        "data": {
-          "url": "https://vega.github.io/vega-datasets/data/world-110m.json",
-          "format": {"type": "topojson", "feature": "countries"}
-        },
-        "mark": {
-          "type": "geoshape",
-          "fill": "#e8e8e8",
-          "stroke": "white",
-          "strokeWidth": 0.3
-        },
-        "projection": {"type": "equalEarth"}
+    "mark": {"type": "rect", "opacity": 0.9},
+    "encoding": {
+      "x": {
+        "field": "lon_bin",
+        "type": "quantitative",
+        "title": "Longitude",
+        "scale": {"domain": [-180, 180]}
       },
-      {
-        "mark": {"type": "rect", "opacity": 0.85},
-        "projection": {"type": "equalEarth"},
-        "encoding": {
-          "longitude": {"field": "lon_bin", "type": "quantitative"},
-          "latitude": {"field": "lat_bin", "type": "quantitative"},
-          "color": {
-            "field": "fire_count",
-            "type": "quantitative",
-            "scale": {
-              "type": "log",
-              "scheme": "orangered"
-            },
-            "title": "Fire Count (log)"
-          },
-          "tooltip": [
-            {"field": "year", "title": "Year"},
-            {"field": "lat_bin", "title": "Latitude"},
-            {"field": "lon_bin", "title": "Longitude"},
-            {"field": "fire_count", "title": "Fire Count"},
-            {"field": "avg_frp", "title": "Avg FRP (MW)", "format": ".1f"}
-          ]
-        }
-      }
-    ]
+      "y": {
+        "field": "lat_bin",
+        "type": "quantitative",
+        "title": "Latitude",
+        "scale": {"domain": [-90, 90]}
+      },
+      "color": {
+        "field": "fire_count",
+        "type": "quantitative",
+        "scale": {"type": "log", "scheme": "orangered"},
+        "title": "Fire Count"
+      },
+      "tooltip": [
+        {"field": "year", "title": "Year"},
+        {"field": "lat_bin", "title": "Latitude"},
+        {"field": "lon_bin", "title": "Longitude"},
+        {"field": "fire_count", "title": "Fire Count"},
+        {"field": "avg_frp", "title": "Avg FRP (MW)", "format": ".1f"}
+      ]
+    }
   }
 }
