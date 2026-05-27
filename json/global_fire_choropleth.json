@@ -1,0 +1,66 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 900,
+  "height": 500,
+  "title": "Global Fire Detections by Country",
+  "projection": {
+    "type": "equalEarth"
+  },
+  "data": {
+    "url": "https://vega.github.io/vega-datasets/data/world-110m.json",
+    "format": {
+      "type": "topojson",
+      "feature": "countries"
+    }
+  },
+  "transform": [
+    {
+      "lookup": "id",
+      "from": {
+        "data": {
+          "url": "data/country_fire_stats.csv"
+        },
+        "key": "iso_numeric",
+        "fields": ["country", "fire_count", "avg_frp"]
+      }
+    }
+  ],
+  "mark": {
+    "type": "geoshape",
+    "stroke": "white",
+    "strokeWidth": 0.4
+  },
+  "encoding": {
+    "color": {
+      "field": "fire_count",
+      "type": "quantitative",
+      "title": "Fire detections",
+      "scale": {
+        "scheme": "oranges"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "country",
+        "type": "nominal",
+        "title": "Country"
+      },
+      {
+        "field": "fire_count",
+        "type": "quantitative",
+        "title": "Fire detections"
+      },
+      {
+        "field": "avg_frp",
+        "type": "quantitative",
+        "title": "Average FRP",
+        "format": ".2f"
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
+}
