@@ -1,0 +1,48 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Global Bushfire Activity by Year",
+    "subtitle": "Each cell shows fire count in a 1 degree grid square (2020-2024)"
+  },
+  "data": {
+    "url": "https://hwuu0129.github.io/FIT2179V2/data/global_binned_all_years.csv"
+  },
+  "facet": {
+    "field": "year",
+    "type": "ordinal",
+    "header": {"title": null},
+    "columns": 3
+  },
+  "spec": {
+    "width": 280,
+    "height": 140,
+    "mark": {"type": "rect", "opacity": 0.9},
+    "encoding": {
+      "x": {
+        "field": "lon_bin",
+        "type": "quantitative",
+        "title": "Longitude",
+        "scale": {"domain": [-180, 180]}
+      },
+      "y": {
+        "field": "lat_bin",
+        "type": "quantitative",
+        "title": "Latitude",
+        "scale": {"domain": [-90, 90]}
+      },
+      "color": {
+        "field": "fire_count",
+        "type": "quantitative",
+        "scale": {"type": "log", "scheme": "orangered"},
+        "title": "Fire Count"
+      },
+      "tooltip": [
+        {"field": "year", "title": "Year"},
+        {"field": "lat_bin", "title": "Latitude"},
+        {"field": "lon_bin", "title": "Longitude"},
+        {"field": "fire_count", "title": "Fire Count"},
+        {"field": "avg_frp", "title": "Avg FRP (MW)", "format": ".1f"}
+      ]
+    }
+  }
+}
