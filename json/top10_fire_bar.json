@@ -1,0 +1,83 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 700,
+  "height": 400,
+  "title": "Top 10 Countries by Fire Detections",
+  "data": {
+    "url": "data/country_fire_stats.csv"
+  },
+  "transform": [
+    {
+      "window": [
+        {
+          "op": "rank",
+          "as": "rank"
+        }
+      ],
+      "sort": [
+        {
+          "field": "fire_count",
+          "order": "descending"
+        }
+      ]
+    },
+    {
+      "filter": "datum.rank <= 10"
+    }
+  ],
+  "mark": {
+    "type": "bar",
+    "cornerRadiusEnd": 3
+  },
+  "encoding": {
+    "y": {
+      "field": "country",
+      "type": "nominal",
+      "sort": "-x",
+      "title": "Country",
+      "axis": {
+        "labelLimit": 220
+      }
+    },
+    "x": {
+      "field": "fire_count",
+      "type": "quantitative",
+      "title": "Number of Fire Detections"
+    },
+    "color": {
+      "field": "fire_count",
+      "type": "quantitative",
+      "title": "Fire detections",
+      "scale": {
+        "scheme": "oranges"
+      },
+      "legend": null
+    },
+    "tooltip": [
+      {
+        "field": "country",
+        "type": "nominal",
+        "title": "Country"
+      },
+      {
+        "field": "fire_count",
+        "type": "quantitative",
+        "title": "Fire detections"
+      },
+      {
+        "field": "avg_frp",
+        "type": "quantitative",
+        "title": "Average FRP",
+        "format": ".2f"
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "grid": false
+    }
+  }
+}
