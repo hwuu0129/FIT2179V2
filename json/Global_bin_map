@@ -1,0 +1,108 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Global Wildfire Activity",
+    "subtitle": "Fire detections binned by 2° grid cell · 2020–2024",
+    "color": "#f0e6d3",
+    "subtitleColor": "#b0a090",
+    "fontSize": 18,
+    "subtitleFontSize": 12
+  },
+  "width": 880,
+  "height": 440,
+  "background": "#0d1117",
+  "params": [
+    {
+      "name": "year_select",
+      "value": 2024,
+      "bind": {
+        "input": "range",
+        "min": 2020,
+        "max": 2024,
+        "step": 1,
+        "name": "Year: "
+      }
+    }
+  ],
+  "projection": {
+    "type": "naturalEarth1"
+  },
+  "layer": [
+    {
+      "data": {"sphere": true},
+      "mark": {
+        "type": "geoshape",
+        "fill": "#0d1b2e"
+      }
+    },
+    {
+      "data": {
+        "url": "https://vega.github.io/vega-datasets/data/world-110m.json",
+        "format": {"type": "topojson", "feature": "countries"}
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#1c2b1a",
+        "stroke": "#2a3d28",
+        "strokeWidth": 0.4
+      }
+    },
+    {
+      "data": {
+        "url": "https://vega.github.io/vega-datasets/data/world-110m.json",
+        "format": {"type": "topojson", "feature": "graticule"}
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": null,
+        "stroke": "#1a2a3a",
+        "strokeWidth": 0.3
+      }
+    },
+    {
+      "data": {"url": "global_binned_all_years.csv"},
+      "transform": [
+        {"filter": "datum.year == year_select"},
+        {"calculate": "datum.lon_bin + 2", "as": "lon2"},
+        {"calculate": "datum.lat_bin + 2", "as": "lat2"}
+      ],
+      "mark": {
+        "type": "rect",
+        "opacity": 0.85,
+        "clip": true
+      },
+      "encoding": {
+        "longitude": {"field": "lon_bin", "type": "quantitative"},
+        "latitude": {"field": "lat_bin", "type": "quantitative"},
+        "longitude2": {"field": "lon2"},
+        "latitude2": {"field": "lat2"},
+        "color": {
+          "field": "fire_count",
+          "type": "quantitative",
+          "scale": {
+            "type": "symlog",
+            "constant": 10,
+            "range": ["#ffffb2", "#fecc5c", "#fd8d3c", "#f03b20", "#bd0026", "#6b0000"]
+          },
+          "legend": {
+            "title": "Fire Count",
+            "titleColor": "#d0c0b0",
+            "labelColor": "#d0c0b0",
+            "gradientLength": 200,
+            "orient": "bottom-right"
+          }
+        },
+        "tooltip": [
+          {"field": "lat_bin", "type": "quantitative", "title": "Latitude"},
+          {"field": "lon_bin", "type": "quantitative", "title": "Longitude"},
+          {"field": "fire_count", "type": "quantitative", "title": "Fire Detections", "format": ","},
+          {"field": "avg_frp", "type": "quantitative", "title": "Avg Fire Power (MW)", "format": ".1f"},
+          {"field": "year", "type": "ordinal", "title": "Year"}
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null}
+  }
+}
