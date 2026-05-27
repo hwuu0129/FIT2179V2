@@ -61,21 +61,13 @@
 
   <h2>Fire Detections by Australian State</h2>
 <p>Darker orange indicates more fire detections. Northern Territory dominates with over 112,000 detections.</p>
-
 <div id="aus_choropleth"></div>
-
-<script>
-  vegaEmbed("#aus_choropleth", "json/fire_choropleth_map.json", { actions: false });
-</script>
+<script>vegaEmbed("#aus_choropleth", "json/fire_choropleth_map.json", { actions: false });</script>
 
   <h2>Australian States Ranked by Fire Detections</h2>
 <p>This bar chart ranks Australian states by the number of fire detections. It makes the state-level differences easier to compare than the map alone.</p>
-
 <div id="aus_state_bar"></div>
-
-<script>
-  vegaEmbed("#aus_state_bar", "json/fire_bar_chart.json", { actions: false });
-</script>
+<script>vegaEmbed("#aus_state_bar", "json/fire_bar_chart.json", { actions: false });</script>
 
   
 </body>
