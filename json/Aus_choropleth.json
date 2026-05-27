@@ -15,49 +15,92 @@
   "layer": [
     {
       "data": {
-        "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson",
-        "format": {"type": "json", "property": "features"}
+        "url": "https://cdn.jsdelivr.net/npm/vega-datasets@2/data/world-110m.json",
+        "format": {"type": "topojson", "feature": "countries"}
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e8dcc8",
+        "stroke": "#ccc",
+        "strokeWidth": 0.5
+      }
+    },
+    {
+      "data": {
+        "url": "https://cdn.jsdelivr.net/npm/vega-datasets@2/data/world-110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
       },
       "transform": [
+        {"filter": "datum.id == 36"},
         {
-          "lookup": "properties.STATE_NAME",
+          "lookup": "id",
           "from": {
-            "data": {
-              "values": [
-                {"state": "Northern Territory", "fire_count": 112207, "avg_frp": 8.36},
-                {"state": "Western Australia",  "fire_count": 19232,  "avg_frp": 12.20},
-                {"state": "New South Wales",    "fire_count": 20321,  "avg_frp": 13.25},
-                {"state": "Queensland",         "fire_count": 18628,  "avg_frp": 5.56},
-                {"state": "South Australia",    "fire_count": 1620,   "avg_frp": 16.75},
-                {"state": "Victoria",           "fire_count": 3004,   "avg_frp": 14.30},
-                {"state": "Tasmania",           "fire_count": 367,    "avg_frp": 10.03}
-              ]
-            },
-            "key": "state",
-            "fields": ["fire_count", "avg_frp"]
+            "data": {"values": [{"id": 36, "label": "Australia"}]},
+            "key": "id",
+            "fields": ["label"]
           }
         }
       ],
       "mark": {
         "type": "geoshape",
+        "fill": "#f5e6cc",
+        "stroke": "#aaa",
+        "strokeWidth": 1
+      }
+    },
+    {
+      "data": {
+        "url": "data/aus_states.csv"
+      },
+      "transform": [
+        {
+          "lookup": "state",
+          "from": {
+            "data": {
+              "values": [
+                {"state": "Northern Territory", "lat": -19.5,  "lon": 133.4},
+                {"state": "Western Australia",  "lat": -25.0,  "lon": 121.6},
+                {"state": "Queensland",         "lat": -22.0,  "lon": 144.0},
+                {"state": "New South Wales",    "lat": -32.0,  "lon": 146.5},
+                {"state": "South Australia",    "lat": -30.0,  "lon": 135.8},
+                {"state": "Victoria",           "lat": -37.0,  "lon": 144.5},
+                {"state": "Tasmania",           "lat": -42.0,  "lon": 146.5}
+              ]
+            },
+            "key": "state",
+            "fields": ["lat", "lon"]
+          }
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "opacity": 0.85,
         "stroke": "white",
         "strokeWidth": 1
       },
       "encoding": {
-        "color": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude":  {"field": "lat", "type": "quantitative"},
+        "size": {
           "field": "fire_count",
           "type": "quantitative",
           "title": "Fire Detections",
-          "scale": {"scheme": "oranges"},
-          "condition": {
-            "test": "datum.fire_count === null",
-            "value": "#e0e0e0"
-          }
+          "scale": {"range": [200, 4000]}
+        },
+        "color": {
+          "field": "avg_frp",
+          "type": "quantitative",
+          "title": "Avg FRP (MW)",
+          "scale": {"scheme": "oranges"}
         },
         "tooltip": [
-          {"field": "properties.STATE_NAME", "type": "nominal",     "title": "State"},
-          {"field": "fire_count",            "type": "quantitative", "title": "Fire Detections", "format": ","},
-          {"field": "avg_frp",               "type": "quantitative", "title": "Avg FRP (MW)",    "format": ".2f"}
+          {"field": "state",      "type": "nominal",     "title": "State"},
+          {"field": "fire_count", "type": "quantitative","title": "Fire Detections", "format": ","},
+          {"field": "avg_frp",    "type": "quantitative","title": "Avg FRP (MW)",    "format": ".2f"},
+          {"field": "total_frp",  "type": "quantitative","title": "Total FRP (MW)",  "format": ",.0f"}
         ]
       }
     }
