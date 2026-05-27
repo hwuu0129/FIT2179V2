@@ -19,12 +19,22 @@
   ],
   "projection": {"type": "equalEarth"},
   "data": {
-    "url": "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson",
-    "format": {"type": "json", "property": "features"}
+    "url": "https://vega.github.io/vega-datasets/data/world-110m.json",
+    "format": {"type": "topojson", "feature": "countries"}
   },
   "transform": [
     {
-      "lookup": "properties.ADMIN",
+      "lookup": "id",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/all/all.csv"
+        },
+        "key": "country-code",
+        "fields": ["name"]
+      }
+    },
+    {
+      "lookup": "name",
       "from": {
         "data": {"url": "data/global_fire_by_country_year.csv"},
         "key": "country",
@@ -39,10 +49,14 @@
       "field": "total_fires",
       "type": "quantitative",
       "scale": {"type": "log", "scheme": "orangered", "domainMin": 1},
-      "title": "Fire Count"
+      "title": "Fire Count",
+      "condition": {
+        "test": "!isValid(datum.total_fires)",
+        "value": "#e0e0e0"
+      }
     },
     "tooltip": [
-      {"field": "properties.ADMIN", "type": "nominal", "title": "Country"},
+      {"field": "name", "type": "nominal", "title": "Country"},
       {"field": "total_fires", "type": "quantitative", "title": "Fire Count", "format": ","},
       {"field": "year", "type": "quantitative", "title": "Year"}
     ]
