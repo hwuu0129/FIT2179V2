@@ -1,111 +1,203 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 700,
-  "height": 500,
+  "width": 760,
+  "height": 460,
+  "background": "#07131c",
   "title": {
-    "text": "Fire Detections by Australian State (Mar–May 2026)",
-    "fontSize": 15,
-    "fontWeight": "bold"
+    "text": "Bushfire Activity by State",
+    "subtitle": "Total fire detections in Australia",
+    "fontSize": 22,
+    "subtitleFontSize": 14,
+    "fontWeight": "bold",
+    "color": "#f2f2f2",
+    "subtitleColor": "#d0d0d0",
+    "anchor": "start",
+    "offset": 10
   },
   "projection": {
     "type": "mercator",
     "center": [134, -28],
-    "scale": 700
+    "scale": 720
   },
   "layer": [
     {
       "data": {
-        "url": "https://cdn.jsdelivr.net/npm/vega-datasets@2/data/world-110m.json",
-        "format": {"type": "topojson", "feature": "countries"}
-      },
-      "mark": {
-        "type": "geoshape",
-        "fill": "#e8dcc8",
-        "stroke": "#ccc",
-        "strokeWidth": 0.5
-      }
-    },
-    {
-      "data": {
-        "url": "https://cdn.jsdelivr.net/npm/vega-datasets@2/data/world-110m.json",
+        "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.min.geojson",
         "format": {
-          "type": "topojson",
-          "feature": "countries"
+          "type": "geojson"
         }
       },
       "transform": [
-        {"filter": "datum.id == 36"},
         {
-          "lookup": "id",
+          "lookup": "properties.STATE_NAME",
           "from": {
-            "data": {"values": [{"id": 36, "label": "Australia"}]},
-            "key": "id",
-            "fields": ["label"]
+            "data": {
+              "url": "data/aus_states.csv"
+            },
+            "key": "state",
+            "fields": ["fire_count", "avg_frp", "total_frp"]
           }
+        },
+        {
+          "calculate": "toNumber(datum.fire_count)",
+          "as": "fire_count_num"
+        },
+        {
+          "calculate": "toNumber(datum.avg_frp)",
+          "as": "avg_frp_num"
+        },
+        {
+          "calculate": "toNumber(datum.total_frp)",
+          "as": "total_frp_num"
         }
       ],
       "mark": {
         "type": "geoshape",
-        "fill": "#f5e6cc",
-        "stroke": "#aaa",
-        "strokeWidth": 1
+        "stroke": "#d8b27c",
+        "strokeWidth": 0.8
+      },
+      "encoding": {
+        "color": {
+          "field": "fire_count_num",
+          "type": "quantitative",
+          "title": "Fire Count",
+          "scale": {
+            "scheme": "yelloworangered",
+            "domain": [0, 112207]
+          },
+          "legend": {
+            "orient": "right",
+            "titleColor": "#f2f2f2",
+            "labelColor": "#f2f2f2",
+            "gradientLength": 150,
+            "gradientThickness": 18
+          }
+        },
+        "tooltip": [
+          {
+            "field": "properties.STATE_NAME",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "fire_count_num",
+            "type": "quantitative",
+            "title": "Fire Count",
+            "format": ","
+          },
+          {
+            "field": "avg_frp_num",
+            "type": "quantitative",
+            "title": "Average FRP",
+            "format": ".2f"
+          },
+          {
+            "field": "total_frp_num",
+            "type": "quantitative",
+            "title": "Total FRP",
+            "format": ",.0f"
+          }
+        ]
       }
     },
     {
       "data": {
-        "url": "data/aus_states.csv"
+        "values": [
+          {
+            "abbr": "WA",
+            "state": "Western Australia",
+            "lat": -25.5,
+            "lon": 121.5
+          },
+          {
+            "abbr": "NT",
+            "state": "Northern Territory",
+            "lat": -19.5,
+            "lon": 133.5
+          },
+          {
+            "abbr": "QLD",
+            "state": "Queensland",
+            "lat": -22.0,
+            "lon": 144.5
+          },
+          {
+            "abbr": "SA",
+            "state": "South Australia",
+            "lat": -30.0,
+            "lon": 135.5
+          },
+          {
+            "abbr": "NSW",
+            "state": "New South Wales",
+            "lat": -32.5,
+            "lon": 146.5
+          },
+          {
+            "abbr": "VIC",
+            "state": "Victoria",
+            "lat": -37.2,
+            "lon": 144.5
+          },
+          {
+            "abbr": "TAS",
+            "state": "Tasmania",
+            "lat": -42.2,
+            "lon": 146.5
+          }
+        ]
       },
       "transform": [
         {
           "lookup": "state",
           "from": {
             "data": {
-              "values": [
-                {"state": "Northern Territory", "lat": -19.5,  "lon": 133.4},
-                {"state": "Western Australia",  "lat": -25.0,  "lon": 121.6},
-                {"state": "Queensland",         "lat": -22.0,  "lon": 144.0},
-                {"state": "New South Wales",    "lat": -32.0,  "lon": 146.5},
-                {"state": "South Australia",    "lat": -30.0,  "lon": 135.8},
-                {"state": "Victoria",           "lat": -37.0,  "lon": 144.5},
-                {"state": "Tasmania",           "lat": -42.0,  "lon": 146.5}
-              ]
+              "url": "data/aus_states.csv"
             },
             "key": "state",
-            "fields": ["lat", "lon"]
+            "fields": ["fire_count"]
           }
+        },
+        {
+          "calculate": "datum.abbr + '\\n' + format(toNumber(datum.fire_count), ',')",
+          "as": "label"
         }
       ],
       "mark": {
-        "type": "circle",
-        "opacity": 0.85,
-        "stroke": "white",
-        "strokeWidth": 1
+        "type": "text",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "lineBreak": "\n",
+        "align": "center",
+        "baseline": "middle"
       },
       "encoding": {
-        "longitude": {"field": "lon", "type": "quantitative"},
-        "latitude":  {"field": "lat", "type": "quantitative"},
-        "size": {
-          "field": "fire_count",
-          "type": "quantitative",
-          "title": "Fire Detections",
-          "scale": {"range": [200, 4000]}
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label",
+          "type": "nominal"
         },
         "color": {
-          "field": "avg_frp",
-          "type": "quantitative",
-          "title": "Avg FRP (MW)",
-          "scale": {"scheme": "oranges"}
-        },
-        "tooltip": [
-          {"field": "state",      "type": "nominal",     "title": "State"},
-          {"field": "fire_count", "type": "quantitative","title": "Fire Detections", "format": ","},
-          {"field": "avg_frp",    "type": "quantitative","title": "Avg FRP (MW)",    "format": ".2f"},
-          {"field": "total_frp",  "type": "quantitative","title": "Total FRP (MW)",  "format": ",.0f"}
-        ]
+          "value": "#ffffff"
+        }
       }
     }
   ],
   "config": {
-    "view": {"stroke": null}
+    "view": {
+      "stroke": "#1f3b4a",
+      "strokeWidth": 1.5
+    },
+    "legend": {
+      "labelFontSize": 12,
+      "titleFontSize": 13
+    }
   }
 }
