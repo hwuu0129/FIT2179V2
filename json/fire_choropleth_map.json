@@ -14,12 +14,12 @@
     "center": [134, -28],
     "scale": 700
   },
-  "data": {
-    "url": "data/australia_states.geojson",
-    "format": {
-      "type": "geojson"
-    }
-  },
+"data": {
+  "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson",
+  "format": {
+    "type": "geojson"
+  }
+}，
   "transform": [
     {
       "calculate": "datum.properties.STATE_NAME || datum.properties.STE_NAME21 || datum.properties.name || datum.properties.NAME",
