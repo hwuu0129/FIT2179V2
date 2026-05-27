@@ -4,7 +4,7 @@
     "text": "Global Bushfire Activity by Year",
     "subtitle": "Each cell shows fire count in a 1° grid square (2020–2024)"
   },
-  "data": {"url": "data/global_binned_all_years.csv"},
+  "data": {"url": "https://hwuu0129.github.io/FIT2179V2/data/global_binned_all_years.csv"},
   "facet": {
     "field": "year",
     "type": "ordinal",
