@@ -1,0 +1,68 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 700,
+  "height": 500,
+  "title": {
+    "text": "Fire Detections by Australian State (Mar–May 2026)",
+    "fontSize": 15,
+    "fontWeight": "bold"
+  },
+  "projection": {
+    "type": "mercator",
+    "center": [134, -28],
+    "scale": 700
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson",
+        "format": {"type": "json", "property": "features"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.STATE_NAME",
+          "from": {
+            "data": {
+              "values": [
+                {"state": "Northern Territory", "fire_count": 112207, "avg_frp": 8.36},
+                {"state": "Western Australia",  "fire_count": 19232,  "avg_frp": 12.20},
+                {"state": "New South Wales",    "fire_count": 20321,  "avg_frp": 13.25},
+                {"state": "Queensland",         "fire_count": 18628,  "avg_frp": 5.56},
+                {"state": "South Australia",    "fire_count": 1620,   "avg_frp": 16.75},
+                {"state": "Victoria",           "fire_count": 3004,   "avg_frp": 14.30},
+                {"state": "Tasmania",           "fire_count": 367,    "avg_frp": 10.03}
+              ]
+            },
+            "key": "state",
+            "fields": ["fire_count", "avg_frp"]
+          }
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "white",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "color": {
+          "field": "fire_count",
+          "type": "quantitative",
+          "title": "Fire Detections",
+          "scale": {"scheme": "oranges"},
+          "condition": {
+            "test": "datum.fire_count === null",
+            "value": "#e0e0e0"
+          }
+        },
+        "tooltip": [
+          {"field": "properties.STATE_NAME", "type": "nominal",     "title": "State"},
+          {"field": "fire_count",            "type": "quantitative", "title": "Fire Detections", "format": ","},
+          {"field": "avg_frp",               "type": "quantitative", "title": "Avg FRP (MW)",    "format": ".2f"}
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {"stroke": null}
+  }
+}
