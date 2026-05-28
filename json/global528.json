@@ -1,0 +1,46 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Global Bushfire Activity",
+  "width": 1000,
+  "height": 500,
+  "projection": {"type": "equalEarth"},
+  "layer": [
+    {
+      "data": {
+        "url": "https://vega.github.io/vega-datasets/data/world-110m.json",
+        "format": {"type": "topojson", "feature": "countries"}
+      },
+      "mark": {"type": "geoshape", "fill": "#e6e6e6", "stroke": "white"}
+    },
+    {
+      "data": {"url": "data/Global_fire.csv", "format": {"type": "csv"}},
+      "transform": [
+        {"calculate": "toNumber(datum.longitude)", "as": "longitude_num"},
+        {"calculate": "toNumber(datum.latitude)", "as": "latitude_num"},
+        {
+          "filter": "isValid(datum.longitude_num) && isValid(datum.latitude_num)"
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "color": "#D95F02",
+        "opacity": 0.6,
+        "size": 30
+      },
+      "encoding": {
+        "longitude": {"field": "longitude_num", "type": "quantitative"},
+        "latitude": {"field": "latitude_num", "type": "quantitative"},
+        "tooltip": [
+          {"field": "latitude", "type": "nominal", "title": "Latitude"},
+          {"field": "longitude", "type": "nominal", "title": "Longitude"},
+          {
+            "field": "frp",
+            "type": "quantitative",
+            "title": "Fire Radiative Power"
+          },
+          {"field": "acq_date", "type": "nominal", "title": "Date"}
+        ]
+      }
+    }
+  ]
+}
