@@ -1,0 +1,91 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Change in Fire Detections by Country (2014 vs 2024)",
+    "subtitle": "Top 10 countries with the largest absolute change — NASA FIRMS",
+    "fontSize": 15,
+    "subtitleFontSize": 11,
+    "fontWeight": "bold",
+    "anchor": "middle",
+    "offset": 10
+  },
+  "width": 250,
+  "height": 315,
+  "data": {
+    "url": "https://hwuu0129.github.io/2179_2_2/data/country_dumbbell_2014_2024.csv"
+  },
+  "transform": [
+    {"fold": ["fire_2014", "fire_2024"], "as": ["year_type", "fire_count"]},
+    {
+      "calculate": "datum.year_type === 'fire_2014' ? '2014' : '2024'",
+      "as": "year_label"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 2.5,
+        "opacity": 0.4,
+        "color": "#aaaaaa"
+      },
+      "encoding": {
+        "y": {
+          "field": "country",
+          "type": "nominal",
+          "sort": {"field": "fire_2024", "order": "descending"},
+          "title": null,
+          "axis": {"labelFontSize": 11}
+        },
+        "x": {
+          "field": "fire_2014",
+          "type": "quantitative",
+          "title": "",
+          "axis": {"format": "~s", "labelFontSize": 11, "titleFontSize": 12}
+        },
+        "x2": {"field": "fire_2024"}
+      }
+    },
+    {
+      "mark": {"type": "circle", "size": 110, "opacity": 0.9},
+      "encoding": {
+        "y": {
+          "field": "country",
+          "type": "nominal",
+          "sort": {"field": "fire_2024", "order": "descending"}
+        },
+        "x": {
+          "field": "fire_count",
+          "type": "quantitative",
+          "axis": {"format": "~s"}
+        },
+        "color": {
+          "field": "year_label",
+          "type": "nominal",
+          "title": "",
+          "scale": {
+            "domain": ["2014", "2024"],
+            "range": ["#fdae6b", "#d62728"]
+          },
+          "legend": {
+            "orient": "none",
+            "legendX": 80,
+            "legendY": 350,
+            "direction": "horizontal",
+            "columns": 2,
+            "titleFontSize": 10,
+            "labelFontSize": 10,
+            "symbolSize": 60
+          }
+        },
+        "tooltip": [
+          {"field": "country", "title": "Country"},
+          {"field": "year_label", "title": "Year"},
+          {"field": "fire_count", "title": "Fire detections", "format": ","},
+          {"field": "change", "title": "Change 2014–2024", "format": ","}
+        ]
+      }
+    }
+  ],
+  "padding": 0
+}

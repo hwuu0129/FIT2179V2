@@ -1,0 +1,49 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Global Fire Detections Over Time (2014–2024)",
+    "subtitle": "Total active fire detections aggregated from NASA FIRMS gridded data",
+    "fontSize": 15,
+    "subtitleFontSize": 11,
+    "fontWeight": "bold",
+    "anchor": "middle",
+    "offset": 10
+  },
+  "width": 375,
+  "height": 335,
+  "data": {
+    "url": "https://hwuu0129.github.io/2179_2_2/data/global_yearly_fire_2014_2024.csv"
+  },
+  "mark": {
+    "type": "line",
+    "point": {
+      "filled": true,
+      "fill": "#e63946",
+      "stroke": "#e63946"
+    },
+    "strokeWidth": 3,
+    "color": "#e63946"
+  },
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "quantitative",
+      "title": "",
+      "axis": {"format": "d", "values": [2014, 2016, 2018, 2020, 2022, 2024]}
+    },
+    "y": {
+      "field": "total_fire_count",
+      "type": "quantitative",
+      "title": "",
+      "axis": {"format": "~s"}
+    },
+    "order": {"field": "year", "type": "quantitative"},
+    "tooltip": [
+      {"field": "year", "title": "Year", "format": "d"},
+      {"field": "total_fire_count", "title": "Fire detections", "format": ","},
+      {"field": "avg_frp", "title": "Average FRP", "format": ".2f"},
+      {"field": "grid_cells", "title": "Grid cells"}
+    ]
+  },
+  "padding": 0
+}

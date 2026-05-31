@@ -1,0 +1,102 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Annual Rainfall by Australian State/Territory (2014–2024)",
+    "subtitle": "Area-averaged rainfall (mm) with Black Summer reference",
+    "anchor": "middle"
+  },
+  "width": 820,
+  "height": 400,
+  "layer": [
+    {
+      "data": {
+        "url": "https://hwuu0129.github.io/2179_2_2/data/aus_rainfall_state_2014_2024.csv"
+      },
+      "mark": {"type": "line", "point": true, "strokeWidth": 2},
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "title": "",
+          "axis": {"format": "d", "tickMinStep": 1}
+        },
+        "y": {
+          "field": "rainfall_mm",
+          "type": "quantitative",
+          "title": ""
+        },
+        "color": {
+          "field": "state",
+          "type": "nominal",
+          "title": "",
+          "scale": {
+            "domain": ["NT", "QLD", "WA", "NSW", "VIC", "SA"],
+            "range": [
+              "#D55E00",
+              "#009E73",
+              "#E69F00",
+              "#0072B2",
+              "#CC79A7",
+              "#56B4E9",
+              "#F0E442",
+              "#000000"
+            ]
+          }
+        },
+        "tooltip": [
+          {"field": "state", "title": "State"},
+          {"field": "year", "title": "Year", "format": "d"},
+          {"field": "rainfall_mm", "title": "Rainfall (mm)", "format": ".1f"}
+        ]
+      }
+    },
+    {
+      "data": {"values": [{"year": 2019}]},
+      "mark": {
+        "type": "rule",
+        "color": "red",
+        "strokeDash": [6, 6],
+        "strokeWidth": 2
+      },
+      "encoding": {"x": {"field": "year", "type": "quantitative"}}
+    },
+    {
+      "data": {"values": [{"year": 2019, "label": "Black Summer"}]},
+      "mark": {
+        "type": "text",
+        "color": "red",
+        "fontWeight": "bold",
+        "align": "left",
+        "dx": 6,
+        "dy": -8
+      },
+      "encoding": {
+        "x": {"field": "year", "type": "quantitative"},
+        "y": {"value": 18},
+        "text": {"field": "label"}
+      }
+    }
+  ],
+  
+   "config": {
+  "axis": {
+    "labelFontSize": 11,
+    "titleFontSize": 12
+  },
+  "legend": {
+    "labelFontSize": 10,
+    "titleFontSize": 10,
+    "orient": "none",
+    "legendX": 285,
+    "legendY": 430,
+    "symbolSize": 60,
+    "columns": 6
+  },
+  "title": {
+    "fontSize": 16,
+    "subtitleFontSize": 12
+  }
+},
+  "padding": 0,
+  "background": "#f7f5f0"
+}

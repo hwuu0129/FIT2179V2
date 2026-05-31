@@ -1,0 +1,93 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Bushfire Detections by State",
+    "subtitle": "2014-2024 (NASA VIIRS)",
+    "fontSize": 15,
+    "subtitleFontSize": 11,
+    "fontWeight": "bold",
+    "anchor": "middle",
+    "offset": 0
+  },
+  "width": 410,
+  "height": 375,
+  "projection": {"type": "mercator", "center": [134, -28], "scale": 450},
+  "layer": [
+    {
+      "data": {
+        "url": "https://hwuu0129.github.io/2179_2_2/data/australia_states.geojson",
+        "format": {"type": "json", "property": "features"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.STATE_NAME",
+          "from": {
+            "data": {
+              "url": "https://hwuu0129.github.io/2179_2_2/data/aus_states528.csv"
+            },
+            "key": "STATE_NAME",
+            "fields": ["total_fire", "avg_frp", "grid_cells"]
+          }
+        }
+      ],
+      "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 1},
+      "encoding": {
+        "color": {
+          "field": "total_fire",
+          "type": "quantitative",
+          "scale": {"scheme": "orangered"},
+          "title": "",
+          "legend": {
+            "orient": "none",
+            "legendX": 150,
+            "legendY": 350,
+            "direction": "horizontal",
+            "titleFontSize": 10,
+            "labelFontSize": 10
+          }
+        },
+        "tooltip": [
+          {
+            "field": "properties.STATE_NAME",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "total_fire",
+            "type": "quantitative",
+            "title": "Fire Count",
+            "format": ","
+          },
+          {"field": "avg_frp", "type": "quantitative", "title": "Avg FRP"},
+          {"field": "grid_cells", "type": "quantitative", "title": "Grid Cells"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "https://hwuu0129.github.io/2179_2_2/data/australia_states.geojson",
+        "format": {"type": "json", "property": "features"}
+      },
+      "transform": [
+        {
+          "filter": "datum.properties.STATE_NAME != 'Australian Capital Territory'"
+        },
+        {"calculate": "geoCentroid(null, datum)", "as": "centroid"},
+        {"calculate": "datum.centroid[0]", "as": "cx"},
+        {"calculate": "datum.centroid[1]", "as": "cy"}
+      ],
+      "mark": {
+        "type": "text",
+        "fontSize": 8,
+        "fontWeight": "bold",
+        "fill": "black"
+      },
+      "encoding": {
+        "longitude": {"field": "cx", "type": "quantitative"},
+        "latitude": {"field": "cy", "type": "quantitative"},
+        "text": {"field": "properties.STATE_NAME", "type": "nominal"}
+      }
+    }
+  ],
+  "padding": 0
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Share of Fire Detections by Australian State",
+    "subtitle": "Percentage contribution of each state to annual fire detections, 2014–2024",
+    "fontSize": 15,
+    "subtitleFontSize": 11,
+    "fontWeight": "bold",
+    "anchor": "middle",
+    "offset": 10
+  },
+  "width": 360,
+  "height": 320,
+  "data": {
+    "url": "https://hwuu0129.github.io/2179_2_2/data/australia_state_year_2014_2024_fixed.csv"
+  },
+  "mark": {"type": "bar", "width": {"band": 0.85}},
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": "",
+      "axis": {"labelAngle": 0, "labelFontSize": 11}
+    },
+    "y": {
+      "aggregate": "sum",
+      "field": "total_fire",
+      "type": "quantitative",
+      "title": "",
+      "stack": "normalize",
+      "axis": {"format": "%", "labelFontSize": 11, "titleFontSize": 12}
+    },
+    "color": {
+      "field": "STATE_NAME",
+      "type": "nominal",
+      "title": "",
+      "scale": {
+        "domain": ["NT", "QLD", "WA", "NSW", "VIC", "SA", "TAS", "ACT"],
+        "range": [
+          "#D55E00",
+          "#009E73",
+          "#E69F00",
+          "#0072B2",
+          "#CC79A7",
+          "#56B4E9",
+          "#F0E442",
+          "#000000"
+        ]
+      },
+      "legend": {
+        "orient": "none",
+        "legendX": 20,
+        "legendY": 345,
+        "labelFontSize": 10,
+        "titleFontSize": 10,
+        "symbolSize": 60,
+        "offset": 8,
+        "columns": 8
+      }
+    },
+    "tooltip": [
+      {"field": "STATE_NAME", "type": "nominal", "title": "State"},
+      {"field": "year", "type": "ordinal", "title": "Year"},
+      {
+        "aggregate": "sum",
+        "field": "total_fire",
+        "type": "quantitative",
+        "title": "Fire detections",
+        "format": ","
+      }
+    ]
+  },
+  "padding": 0
+}

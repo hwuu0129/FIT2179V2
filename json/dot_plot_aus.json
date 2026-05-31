@@ -1,0 +1,91 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Fire Intensity Across Australia",
+    "subtitle": "Fire Radiative Power (FRP) from NASA VIIRS — 2026",
+    "fontSize": 15,
+    "subtitleFontSize": 11,
+    "fontWeight": "bold",
+    "anchor": "middle",
+    "offset": 10
+  },
+  "width": 410,
+  "height": 305,
+  "projection": {"type": "mercator", "center": [134, -28], "scale": 430},
+  "layer": [
+    {
+      "data": {
+        "url": "https://hwuu0129.github.io/2179_2_2/data/australia_states.geojson",
+        "format": {"type": "json", "property": "features"}
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#f0e9d2",
+        "stroke": "white",
+        "strokeWidth": 1
+      }
+    },
+    {
+      "data": {"url": "https://hwuu0129.github.io/2179_2_2/data/fire.csv"},
+      "transform": [
+        {
+          "filter": "datum.latitude > -44 && datum.latitude < -10 && datum.longitude > 112 && datum.longitude < 154"
+        }
+      ],
+      "mark": {"type": "circle", "opacity": 0.6},
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "size": {
+  "field": "frp",
+  "type": "quantitative",
+  "scale": {"range": [10, 600]},
+  "legend": {
+    "orient": "none",
+    "legendX": 130,
+    "legendY": 320,
+    "titleFontSize": 10,
+    "labelFontSize": 10,
+    "symbolSize": 60,
+    "padding": 4,
+    "columns": 5
+  }
+},
+"color": {
+  "field": "frp",
+  "type": "quantitative",
+  "title": "",
+  "scale": {"scheme": "reds"},
+  "legend": {
+    "orient": "none",
+    "legendX": 50,
+    "legendY": 320,
+    "titleFontSize": 5,
+    "labelFontSize": 10,
+    "gradientThickness": 5,
+    "gradientLength": 120,
+    "padding": 4
+  }
+},
+        "tooltip": [
+          {
+            "field": "latitude",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "Latitude"
+          },
+          {
+            "field": "longitude",
+            "type": "quantitative",
+            "format": ".2f",
+            "title": "Longitude"
+          },
+          {"field": "frp", "type": "quantitative", "format": ".1f"},
+          {"field": "acq_date", "type": "nominal", "title": "Date"},
+          {"field": "confidence", "type": "nominal", "title": "Confidence"}
+        ]
+      }
+    }
+  ],
+  "padding": 0
+}

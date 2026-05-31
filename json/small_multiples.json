@@ -1,0 +1,98 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Annual Bushfire Detections by State/Territory (2014–2024)",
+    "fontSize": 15,
+    "fontWeight": "bold",
+    "anchor": "middle",
+    "offset": 10
+  },
+  "data": {
+    "url": "https://hwuu0129.github.io/2179_2_2/data/australia_state_year_2014_2024.csv"
+  },
+  "transform": [
+    {"filter": "datum.STATE_NAME != null && datum.year != null"},
+    {
+      "filter": "indexof(['New South Wales','Victoria','Queensland','Western Australia','South Australia','Northern Territory','Tasmania','Australian Capital Territory'], datum.STATE_NAME) >= 0"
+    }
+  ],
+  "facet": {
+    "field": "STATE_NAME",
+    "type": "nominal",
+    "header": {
+      "title": null,
+      "labelFontSize": 12,
+      "labelFontWeight": "bold",
+      "labelColor": "#333"
+    }
+  },
+  "columns": 4,
+  "spec": {
+    "width": 190,
+    "height": 120,
+    "layer": [
+      {
+        "mark": {
+          "type": "area",
+          "line": {"color": "#e63946", "strokeWidth": 1.8},
+          "color": "#e63946",
+          "opacity": 0.12
+        },
+        "encoding": {
+          "x": {
+            "field": "year",
+            "type": "ordinal",
+            "axis": {
+              "labelAngle": -45,
+              "labelFontSize": 9,
+              "title": null,
+              "values": ["2014", "2016", "2018", "2020", "2022", "2024"]
+            }
+          },
+          "y": {
+            "field": "total_fire",
+            "type": "quantitative",
+            "axis": {
+              "title": null,
+              "labelFontSize": 9,
+              "format": "~s",
+              "tickCount": 3
+            },
+            "scale": {"zero": true}
+          }
+        }
+      },
+      {
+        "mark": {
+          "type": "line",
+          "color": "#e63946",
+          "strokeWidth": 1.8,
+          "point": {"filled": true, "size": 25, "color": "#e63946"}
+        },
+        "encoding": {
+          "x": {"field": "year", "type": "ordinal"},
+          "y": {"field": "total_fire", "type": "quantitative"},
+          "tooltip": [
+            {"field": "STATE_NAME", "type": "nominal", "title": "State"},
+            {"field": "year", "type": "ordinal", "title": "Year"},
+            {
+              "field": "total_fire",
+              "type": "quantitative",
+              "title": "Fire Detections",
+              "format": ","
+            },
+            {
+              "field": "avg_frp",
+              "type": "quantitative",
+              "title": "Avg Intensity (FRP)",
+              "format": ".2f"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "resolve": {"scale": {"y": "shared"}},
+  "padding": 0,
+  "background": "#f7f5f0"
+}

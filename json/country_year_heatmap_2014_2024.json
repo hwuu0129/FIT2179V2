@@ -1,0 +1,59 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Country-Year Fire Detection Heatmap (2014–2024)",
+    "subtitle": "Top 10 countries by total active fire detections in NASA FIRMS gridded data",
+    "fontSize": 15,
+    "subtitleFontSize": 11,
+    "fontWeight": "bold",
+    "anchor": "middle",
+    "offset": 10
+  },
+  "width": 250,
+  "height": 300,
+  "data": {
+    "url": "https://hwuu0129.github.io/2179_2_2/data/country_year_heatmap_2014_2024.csv"
+  },
+  "mark": {"type": "rect", "stroke": "white", "strokeWidth": 1},
+  "encoding": {
+    "x": {"field": "year", "type": "ordinal", "title": ""},
+    "y": {"field": "country", "type": "nominal", "title": "", "sort": "-x"},
+    "color": {
+      "field": "total_fire_count",
+      "type": "quantitative",
+      "title": "",
+      "scale": {"scheme": "orangered"},
+      "legend": {
+  "format": "~s",
+  "orient": "none",
+  "legendX": 25,
+  "legendY": 340,
+  "direction": "horizontal",
+  "gradientLength": 200,
+  "gradientThickness": 10,
+  "labelFontSize": 10,
+  "titleFontSize": 10
+}
+    },
+    "tooltip": [
+      {"field": "country", "title": "Country"},
+      {"field": "year", "title": "Year"},
+      {"field": "total_fire_count", "title": "Fire detections", "format": ","},
+      {"field": "avg_frp", "title": "Average FRP", "format": ".2f"}
+    ]
+  },
+  "config": {
+    "axis": {"labelFontSize": 11, "titleFontSize": 12},
+    "title": {"fontSize": 16, "subtitleFontSize": 12},
+    "legend": {
+      "labelFontSize": 10,
+      "titleFontSize": 10,
+      "orient": "bottom",
+      "symbolSize": 60,
+      "offset": 8,
+      "columns": 4
+    }
+  },
+  "padding": 0
+  
+}

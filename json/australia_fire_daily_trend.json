@@ -1,0 +1,115 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Daily Bushfire Detections in Australia",
+    "subtitle": "March – May 2026 (NASA VIIRS)",
+    "fontSize": 15,
+    "subtitleFontSize": 11,
+    "fontWeight": "bold",
+    "anchor": "middle",
+    "offset": 10
+  },
+  "width": 385,
+  "height": 315,
+  "data": {
+    "url": "https://hwuu0129.github.io/2179_2_2/data/australia_fire_daily.csv"
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "area",
+        "line": {"color": "#D95F02", "strokeWidth": 2},
+        "color": {"expr": "'#D95F02'"},
+        "opacity": 0.1
+      },
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "temporal",
+          "title": "",
+          "axis": {"format": "%b %d", "labelAngle": -30, "tickCount": 10}
+        },
+        "y": {
+          "field": "fire_count",
+          "type": "quantitative",
+          "title": "",
+          "axis": {"format": "~s"}
+        }
+      }
+    },
+    {
+      "mark": {"type": "line", "color": "#D95F02", "strokeWidth": 2},
+      "encoding": {
+        "x": {"field": "date", "type": "temporal"},
+        "y": {"field": "fire_count", "type": "quantitative"},
+        "tooltip": [
+          {
+            "field": "date",
+            "type": "temporal",
+            "title": "Date",
+            "format": "%Y-%m-%d"
+          },
+          {
+            "field": "fire_count",
+            "type": "quantitative",
+            "title": "Fire Count",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "color": "#D95F02",
+        "size": 35,
+        "opacity": 0.8
+      },
+      "encoding": {
+        "x": {"field": "date", "type": "temporal"},
+        "y": {"field": "fire_count", "type": "quantitative"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"date": "2026-04-15", "fire_count": 8064, "label": "Peak: 8,064"},
+          {"date": "2026-05-07", "fire_count": 8154, "label": "Peak: 8,154"}
+        ]
+      },
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "color": "#B22222",
+        "size": 100,
+        "shape": "triangle-up"
+      },
+      "encoding": {
+        "x": {"field": "date", "type": "temporal"},
+        "y": {"field": "fire_count", "type": "quantitative"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"date": "2026-04-15", "fire_count": 8064, "label": "Peak: 8,064"},
+          {"date": "2026-05-07", "fire_count": 8154, "label": "Peak: 8,154"}
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "dy": -16,
+        "fontSize": 11,
+        "color": "#B22222",
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "x": {"field": "date", "type": "temporal"},
+        "y": {"field": "fire_count", "type": "quantitative"},
+        "text": {"field": "label"}
+      }
+    }
+  ],
+  "padding": 0
+}
