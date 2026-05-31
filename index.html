@@ -1,1 +1,514 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Australia on Fire — Bushfire Activity 2014–2026</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: #f7f5f0;
+      color: #222;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 70px 30px 60px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      font-size: 0.78em;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #e63946;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8em;
+      line-height: 1.2;
+      max-width: 720px;
+      margin: 0 auto 20px;
+    }
+    .hero-sub {
+      font-size: 1.05em;
+      color: #ccc;
+      max-width: 620px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    /* ── Container ── */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    /* ── Chapter header ── */
+    .chapter {
+      margin: 70px 0 36px;
+      padding-left: 18px;
+      border-left: 4px solid #e63946;
+    }
+    .chapter-label {
+      font-size: 0.75em;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #e63946;
+      font-weight: 600;
+    }
+    .chapter-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.85em;
+      color: #1a1a1a;
+      margin-top: 4px;
+      line-height: 1.25;
+    }
+    .chapter-intro {
+      font-size: 0.97em;
+      color: #555;
+      max-width: 720px;
+      margin-top: 12px;
+      font-weight: 300;
+    }
+
+    /* ── Full width chart ── */
+    .chart-full {
+      margin: 40px 0;
+    }
+    .chart-full .chart-box {
+      background: #fff;
+      border-radius: 6px;
+      padding: 24px 20px 16px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+      border-bottom: 1px dashed #e0ddd8;
+      width: 900px;
+      height: auto;
+      overflow: visible;
+    }
+    .chart-caption {
+      font-size: 0.93em;
+      color: #555;
+      margin-top: 14px;
+      font-weight: 300;
+      max-width: 860px;
+      line-height: 1.65;
+    }
+    .chart-caption.placeholder {
+      color: #bbb;
+      font-style: italic;
+    }
+
+    /* ── 2x2 Grid ── */
+    .grid-2x2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin: 40px 0;
+    }
+    .grid-cell {
+      display: flex;
+      flex-direction: column;
+    }
+    .grid-cell .chart-box {
+      background: #fff;
+      border-radius: 6px;
+      padding: 20px 16px 12px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+      flex: 0 0 440px;
+      border-bottom: 1px dashed #e0ddd8;
+      width: 440px;
+      height: 440px;
+      overflow: visible;
+    }
+    .grid-cell .chart-caption {
+      margin-top: 12px;
+      font-size: 0.88em;
+    }
+    .chart-note {
+      font-size: 0.82em;
+      color: #888;
+      margin-top: 8px;
+      font-style: italic;
+      padding-left: 10px;
+      border-left: 2px solid #ddd;
+    }
+
+    /* ── Two columns (side by side) ── */
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin: 40px 0;
+    }
+    .grid-2col .col {
+      display: flex;
+      flex-direction: column;
+    }
+    .grid-2col .chart-box {
+      background: #fff;
+      border-radius: 6px;
+      padding: 20px 16px 12px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+      flex: 0 0 440px;
+      border-bottom: 1px dashed #e0ddd8;
+      width: 440px;
+      height: 440px;
+      overflow: visible;
+    }
+
+    /* ── Left chart, right text ── */
+    .chart-text-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin: 40px 0;
+      align-items: start;
+    }
+    .chart-text-row .chart-box {
+      background: #fff;
+      border-radius: 6px;
+      padding: 20px 16px 12px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+      border-bottom: 1px dashed #e0ddd8;
+      width: 440px;
+      height: 440px;
+      overflow: visible;
+    }
+    .chart-text-row .text-side {
+      padding-top: 8px;
+    }
+    .chart-text-row .text-side h3 {
+      font-size: 1.08em;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 10px;
+    }
+    .chart-text-row .text-side p {
+      font-size: 0.93em;
+      color: #555;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .chart-box.bg-page {
+      background: #f7f5f0;
+      box-shadow: none;
+      border-bottom: none;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 60px 0 0;
+    }
+
+    /* ── Section label above chart ── */
+    .chart-label {
+      font-size: 1.0em;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: #1a1a1a;
+      color: #aaa;
+      padding: 40px 30px;
+      margin-top: 80px;
+      font-size: 0.85em;
+    }
+    footer .footer-grid {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    footer h4 {
+      color: #fff;
+      font-size: 0.9em;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+    }
+    footer p { margin-bottom: 6px; }
+    footer a { color: #e63946; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+
+<body>
+
+<!-- ── Hero ── -->
+<div class="hero">
+  <p class="hero-eyebrow">FIT2179 Data Visualisation</p>
+  <h1>Australia on Fire</h1>
+ <p class="hero-sub">
+  Exploring a decade of bushfire activity across Australia and the world —
+  from global patterns to current fire conditions, and the rainfall that drives them.
+</p>
+</div>
+
+<div class="container">
+
+  <!-- ════════════════════════════════
+       CHAPTER 1 — GLOBAL OVERVIEW
+  ════════════════════════════════ -->
+  <div class="chapter">
+    <p class="chapter-label">Chapter 1</p>
+    <h2 class="chapter-title">A Global Problem</h2>
+    <p class="chapter-intro">
+      Bushfires are not unique to Australia — they burn across every continent.
+      This chapter establishes the global context, identifying where fire activity
+      is most intense and how it has changed over the past decade.
+    </p>
+  </div>
+
+  <!-- global_fire — full width -->
+  <div class="chart-full">
+    <div class="chart-box bg-page">
+      <div id="global_fire"></div>
+      <script>vegaEmbed("#global_fire", "json/global_fire.json", {actions: {export: true, source: true, compiled: true, editor: true}}).catch(console.error);</script>
+    </div>
+    <p class="chart-caption">
+      Active fire detections were unevenly distributed across the world from 6–15 May 2026.
+      Australia stood out as the most fire-affected country, while India, Russia, Angola and Mexico also recorded high numbers. Europe and North Africa remained relatively calm.
+    </p>
+  </div>
+
+  <!-- 2x2 grid -->
+  <div class="grid-2x2">
+
+    <!-- Top left: global_fire_by_country -->
+    <div class="grid-cell">
+      <div class="chart-box">
+        <div id="global_fire_by_country"></div>
+        <script>vegaEmbed("#global_fire_by_country", "json/global_fire_by_country.json", {actions: {export: true, source: true, compiled: true, editor: true}}).catch(console.error);</script>
+      </div>
+      <p class="chart-caption">
+        Australia recorded almost twice as many fire detections as Russia, the second-ranked country. Bushfire risk is highly concentrated — the top four countries alone account for the majority of global fire activity.
+      </p>
+    </div>
+
+    <!-- Top right: global_trend -->
+    <div class="grid-cell">
+      <div class="chart-box">
+        <div id="global_trend"></div>
+        <script>vegaEmbed("#global_trend", "json/global_trend.json", {actions: {export: true, source: true, compiled: true, editor: true}}).catch(console.error);</script>
+      </div>
+      <p class="chart-caption">
+        Global fire detections showed no clear long-term trend between 2014 and 2024. A dramatic spike in 2023 reached the highest level in a decade, followed by a sharp drop in 2024 — highlighting just how much fire activity can vary from year to year.
+      </p>
+    </div>
+
+    <!-- Bottom left: country_year_heatmap -->
+    <div class="grid-cell">
+      <div class="chart-box">
+        <div id="country_heatmap"></div>
+        <script>vegaEmbed("#country_heatmap", "json/country_year_heatmap_2014_2024.json", {actions: {export: true, source: true, compiled: true, editor: true}}).catch(console.error);</script>
+      </div>
+      <p class="chart-caption">
+        The Democratic Republic of Congo and Brazil show consistently high fire activity across all eleven years. Australia and Canada both spiked dramatically in 2023, showing that even countries with moderate fire history can experience extreme seasons.
+      </p>
+    </div>
+
+    <!-- Bottom right: country_dumbbell -->
+    <div class="grid-cell">
+      <div class="chart-box">
+        <div id="country_dumbbell"></div>
+        <script>vegaEmbed("#country_dumbbell", "json/country_dumbbell_2014_2024.json", {actions: {export: true, source: true, compiled: true, editor: true}}).catch(console.error);</script>
+      </div>
+      <p class="chart-caption">
+        Fire activity shifted in opposite directions between 2014 and 2024. Brazil surged while the Democratic Republic of Congo declined sharply. These contrasting trends suggest that fire activity is shaped by local conditions rather than a single global cause.
+      </p>
+    </div>
+
+  </div>
+
+  <hr class="divider">
+
+  <!-- ════════════════════════════════════════
+       CHAPTER 2 — AUSTRALIA: A DECADE
+  ════════════════════════════════════════ -->
+  <div class="chapter">
+    <p class="chapter-label">Chapter 2</p>
+    <h2 class="chapter-title">Australia: A Decade of Bushfires (2014–2024)</h2>
+    <p class="chapter-intro">
+      Zooming in on Australia, this chapter traces ten years of fire activity across
+      states and territories — revealing which regions burn most, how the pattern has
+      shifted over time, and the catastrophic scale of the 2019–20 Black Summer.
+    </p>
+  </div>
+
+  <!-- Row 1: aus_states528 + stacked_bar side by side -->
+  <div class="grid-2col">
+    <div class="col">
+      <div class="chart-box">
+        <div id="aus_map"></div>
+        <script>vegaEmbed("#aus_map", "json/aus_states528.json", {actions: {export: true, source: true, compiled: true, editor: true}}).catch(console.error);</script>
+      </div>
+      <p class="chart-caption">
+        The Northern Territory recorded far more fire detections than any other state over the past decade. Western Australia and Queensland also saw high activity, driven by vast areas of savanna. Southern states recorded fewer fires, though they tend to be more destructive when they occur.
+      </p>
+    </div>
+    <div class="col">
+      <div class="chart-box">
+        <div id="stacked_bar"></div>
+        <script>vegaEmbed("#stacked_bar", "json/australia_state_share_stacked_bar.json", {actions: {export: true, source: true, compiled: true, editor: true}}).catch(console.error);</script>
+      </div>
+      <p class="chart-caption">
+        The Northern Territory consistently accounts for the largest share of national fire detections each year, with Western Australia also contributing significantly. The biggest exception was 2019, when New South Wales surged dramatically during the Black Summer — a rare but devastating shift in where Australia's fires burned.
+      </p>
+    </div>
+  </div>
+
+  <!-- Row 2: aus_trend left, text right -->
+  <div class="chart-text-row">
+    <div class="chart-box bg-page">
+      <div id="aus_trend"></div>
+      <script>vegaEmbed("#aus_trend", "json/aus_trend.json", {actions: {export: true, source: true, compiled: true, editor: true}}).catch(console.error);</script>
+    </div>
+  <div class="text-side" style="padding-top: 45px;">
+  <h3></h3>
+  <p>Australia's fire activity has been volatile over the past decade, with <strong style="color:#D55E00;">no clear direction — only extremes</strong>. After a relatively stable period from 2014 to 2016, detections climbed steadily through 2017 and 2018, reaching a dramatic peak in <strong style="color:#D55E00;">2019 during the Black Summer</strong> — <strong style="color:#D55E00;">one of the worst bushfire seasons in Australia's recorded history</strong>. What followed was a sharp reversal. The <strong style="color:#0072B2;">La Niña weather pattern</strong> brought <strong style="color:#0072B2;">unusually heavy rainfall</strong> across the country in 2020, 2021 and 2022, pushing fire detections to <strong style="color:#0072B2;">their lowest levels in the decade</strong>. But the relief was short-lived. By <strong style="color:#D55E00;">2023, fire activity surged to a new record high</strong> of <strong style="color:#D55E00;">nearly 2 million detections</strong>, surpassing even the Black Summer peak. Detections eased again in 2024, though they <strong>remain above the long-term average</strong>. The pattern is clear: Australia's fire seasons are becoming <strong style="color:#D55E00;">more extreme and less predictable</strong>, shaped by the push and pull of <strong style="color:#0072B2;">La Niña</strong> and <strong style="color:#D55E00;">El Niño</strong> cycles.</p>
+</div>
+  </div>
+
+  <!-- Row 3: small_multiples full width -->
+  <div class="chart-full">
+    <div class="chart-box bg-page">
+      <div id="small_multiples"></div>
+      <script>vegaEmbed("#small_multiples", "json/small_multiples.json", {actions: {export: true, source: true, compiled: true, editor: true}}).catch(console.error);</script>
+    </div>
+    <p class="chart-caption">
+      The Northern Territory dominates, far exceeding every other state. Western Australia swings widely year to year, while New South Wales spiked sharply in 2019 before returning to normal. Tasmania and the ACT barely register, reflecting their cooler, wetter climates.
+    </p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ════════════════════════════════════════
+       CHAPTER 3 — CURRENT CONDITIONS
+  ════════════════════════════════════════ -->
+  <div class="chapter">
+    <p class="chapter-label">Chapter 3</p>
+    <h2 class="chapter-title">Current Fire Conditions (2026)</h2>
+    <p class="chapter-intro">
+      Moving from the historical record to the present day — where are Australia's
+      fires burning right now, and how intense has the current season been?
+    </p>
+  </div>
+
+  <!-- bubble map + daily trend side by side -->
+  <div class="grid-2col">
+    <div class="col">
+      <div class="chart-box">
+        <div id="bubble_map"></div>
+        <script>vegaEmbed("#bubble_map", "json/dot_plot_aus.json", {actions: {export: true, source: true, compiled: true, editor: true}}).catch(console.error);</script>
+      </div>
+      <p class="chart-caption">
+        Fire intensity between March and May in 2026 was concentrated in northern and western Australia, where dry savanna drives intense seasonal fires. A notable cluster also appears along the south-east coast, where fires pose the greatest risk to communities. Both bubble size and colour represent fire intensity — larger, darker bubbles indicate the most intense fires detected.
+      </p>
+    </div>
+    <div class="col">
+      <div class="chart-box">
+        <div id="daily_trend"></div>
+        <script>vegaEmbed("#daily_trend", "json/australia_fire_daily_trend.json", {actions: {export: true, source: true, compiled: true, editor: true}}).catch(console.error);</script>
+      </div>
+      <p class="chart-caption">
+        Fire activity was quiet through mid-March 2026 before escalating sharply in April. Two major peaks — 8,064 on 15 April and 8,154 on 7 May — suggest the 2026 autumn season arrived earlier and more intensely than usual. Conditions can shift from under 1,000 to over 8,000 detections within days.
+      </p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ════════════════════════════════════════
+       CHAPTER 4 — THE ROLE OF RAINFALL
+  ════════════════════════════════════════ -->
+  <div class="chapter">
+    <p class="chapter-label">Chapter 4</p>
+    <h2 class="chapter-title">The Role of Rainfall</h2>
+    <p class="chapter-intro">
+      What drives Australia's fire seasons? Rainfall — or the lack of it — is one
+      of the most powerful predictors of fire activity. This chapter draws on Bureau
+      of Meteorology rainfall data to reveal the link between drought and fire.
+    </p>
+  </div>
+
+  <!-- rainfall_multiline full width -->
+  <div class="chart-full">
+    <div class="chart-box bg-page">
+      <div id="rainfall_multiline"></div>
+      <script>vegaEmbed("#rainfall_multiline", "json/rainfall_by_state_multiline.json", {actions: {export: true, source: true, compiled: true, editor: true}}).catch(console.error);</script>
+    </div>
+    <p class="chart-caption">
+      Every state hit its lowest rainfall in 2019 — South Australia fell to just 82mm, NSW to around 250mm — setting the stage for the Black Summer. The decline was nationwide and synchronised, not regional. Rainfall recovered strongly from 2020, with 2022 becoming one of the wettest years of the decade for most states.
+    </p>
+  </div>
+
+  <!-- scatter + diverging side by side -->
+  <div class="grid-2col">
+    <div class="col">
+      <div class="chart-box">
+        <div id="scatter"></div>
+        <script>vegaEmbed("#scatter", "json/scatter_rainfall_fire.json", {actions: {export: true, source: true, compiled: true, editor: true}}).catch(console.error);</script>
+      </div>
+      <p class="chart-caption">
+        Lower rainfall generally means more fires. NSW shows the clearest pattern — its 2019 triangle sits far to the left, with fire detections jumping to nearly 300k compared to its usual baseline below 100k. The Northern Territory is the exception, burning heavily regardless of rainfall due to its natural savanna fire cycle.
+      </p>
+    </div>
+    <div class="col">
+      <div class="chart-box">
+        <div id="diverging"></div>
+        <script>vegaEmbed("#diverging", "json/diverging_anomaly.json", {actions: {export: true, source: true, compiled: true, editor: true}}).catch(console.error);</script>
+      </div>
+      <p class="chart-caption">
+        In 2019, fire activity ran 37% above average while rainfall was 42% below — the starkest divergence in the dataset, and the year of the Black Summer. In 2023, fires spiked again to 60% above average even as rainfall stayed near normal, suggesting extreme heat and wind are also playing a growing role.
+      </p>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h4>Data Sources</h4>
+      <p>Fire data: <a href="https://firms.modaps.eosdis.nasa.gov/" target="_blank">NASA FIRMS / VIIRS</a></p>
+      <p>Rainfall data: <a href="https://www.bom.gov.au/climate/data/" target="_blank">Bureau of Meteorology (BOM)</a></p>
+    </div>
+    <div>
+      <h4>About</h4>
+      <p>Created for FIT2179 Data Visualisation, Monash University, Semester 1 2026.</p>
+      <p>Built with <a href="https://vega.github.io/vega-lite/" target="_blank">Vega-Lite v5</a>.</p>
+      <p style="margin-top:10px;">Haiyi Wu</p>
+      <p>31 May 2026</p>
+      <p style="margin-top:6px; color:#666; font-size:0.9em;">AI tools (Claude) were used to assist with code generation and text editing.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
