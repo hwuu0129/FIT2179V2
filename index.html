@@ -18,7 +18,15 @@
 
     body {
       font-family: 'Source Sans 3', sans-serif;
-      background: #ffffff;
+      background: linear-gradient(
+        to right,
+        #ffffff 0,
+        #ffffff calc((100% - 960px) / 2),
+        #f7f5f0 calc((100% - 960px) / 2),
+        #f7f5f0 calc((100% + 960px) / 2),
+        #ffffff calc((100% + 960px) / 2),
+        #ffffff 100%
+      );
       color: #222;
       font-size: 16px;
       line-height: 1.7;
