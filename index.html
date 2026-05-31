@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,21 +15,15 @@
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     html, body {
-  overflow-x: hidden;
-}
+      width: 100%;
+      overflow-x: hidden;
+    }
 
     body {
       font-family: 'Source Sans 3', sans-serif;
-      background: linear-gradient(
-        to right,
-        #ffffff 0,
-        #ffffff calc((100% - 960px) / 2),
-        #f7f5f0 calc((100% - 960px) / 2),
-        #f7f5f0 calc((100% + 960px) / 2),
-        #ffffff calc((100% + 960px) / 2),
-        #ffffff 100%
-      );
+      background: #ffffff;
       color: #222;
       font-size: 16px;
       line-height: 1.7;
@@ -37,7 +31,8 @@
 
     /* ── Hero ── */
     .hero {
-      max-width: 960px;
+      width: 960px;
+      max-width: 100%;
       margin: 0 auto;
       background: #1a1a1a;
       color: #fff;
@@ -69,7 +64,8 @@
 
     /* ── Container ── */
     .container {
-      max-width: 960px;
+      width: 960px;
+      max-width: 100%;
       margin: 0 auto;
       padding: 0 30px;
       background: #f7f5f0;
@@ -245,7 +241,8 @@
 
     /* ── Footer ── */
     footer {
-      max-width: 960px;
+      width: 960px;
+      max-width: 100%;
       margin: 80px auto 0;
       background: #1a1a1a;
       color: #aaa;
@@ -527,3 +524,4 @@
 
 </body>
 </html>
+```
