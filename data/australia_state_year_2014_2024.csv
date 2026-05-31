@@ -1,0 +1,99 @@
+year,STATE_NAME,total_fire,avg_frp,grid_cells
+2014,Northern Territory,474892,11.36,42
+2014,Western Australia,329804,12.46,71
+2014,Queensland,275291,8.41,43
+2014,Victoria,73646,14.55,20
+2014,New South Wales,54191,7.41,21
+2014,Australian Capital Territory,29286,11.14,0
+2014,South Australia,28259,15.82,26
+2014,Tasmania,7056,15.13,11
+,,,,
+2015,Northern Territory,548756,11.14,42
+2015,Western Australia,296838,12.85,74
+2015,Queensland,213213,8.04,42
+2015,Victoria,47527,12,20
+2015,New South Wales,46634,7.28,21
+2015,Australian Capital Territory,27812,10.97,0
+2015,South Australia,16981,14.17,23
+2015,Tasmania,6227,11.77,11
+,,,,
+2016,Northern Territory,243294,9.55,41
+2016,Western Australia,181151,11.63,76
+2016,Queensland,227366,8.45,42
+2016,Victoria,44392,11.77,20
+2016,New South Wales,55045,7.18,21
+2016,Australian Capital Territory,18302,9.76,0
+2016,South Australia,10947,8.48,23
+2016,Tasmania,13557,12.14,11
+,,,,
+2017,Northern Territory,476915,12.23,42
+2017,Western Australia,385795,14.64,77
+2017,Queensland,212311,8.48,42
+2017,Victoria,63414,13.23,20
+2017,New South Wales,71936,6.94,21
+2017,Australian Capital Territory,29403,12.18,0
+2017,South Australia,25381,13.81,24
+2017,Tasmania,6254,11.95,11
+,,,,
+2018,Northern Territory,502936,10.41,41
+2018,Western Australia,468773,14.5,74
+2018,Queensland,318616,9.07,42
+2018,Victoria,56201,11.14,20
+2018,New South Wales,75749,8.36,21
+2018,Australian Capital Territory,34849,11.54,0
+2018,South Australia,51017,14.82,25
+2018,Tasmania,6048,12.43,11
+,,,,
+2019,Northern Territory,364522,10.1,42
+2019,Western Australia,359933,15.78,78
+2019,Queensland,251939,8.73,42
+2019,Victoria,247904,12.1,20
+2019,New South Wales,291995,10.6,21
+2019,Australian Capital Territory,37073,11.98,0
+2019,South Australia,63134,18.83,22
+2019,Tasmania,17539,17,11
+,,,,
+2020,Northern Territory,204912,8.71,42
+2020,Western Australia,156423,12.98,77
+2020,Queensland,244916,8.16,42
+2020,Victoria,173417,16.28,20
+2020,New South Wales,51925,6.92,21
+2020,Australian Capital Territory,19889,11.04,0
+2020,South Australia,18286,24.44,22
+2020,Tasmania,5825,14.03,11
+,,,,
+2021,Northern Territory,328038,9.59,42
+2021,Western Australia,195153,11.3,74
+2021,Queensland,193755,8.24,43
+2021,Victoria,50394,14.03,20
+2021,New South Wales,36856,6.46,21
+2021,Australian Capital Territory,19321,9.88,0
+2021,South Australia,10626,11.14,19
+2021,Tasmania,4462,14.21,10
+,,,,
+2022,Northern Territory,362506,9.82,42
+2022,Western Australia,214210,11.32,75
+2022,Queensland,150886,7.92,40
+2022,Victoria,34253,14.5,20
+2022,New South Wales,22070,8.53,19
+2022,Australian Capital Territory,18916,10.06,0
+2022,South Australia,10311,10.94,23
+2022,Tasmania,4288,8.93,11
+,,,,
+2023,Northern Territory,838910,12.48,42
+2023,Western Australia,448822,13.21,75
+2023,Queensland,389270,8.4,42
+2023,Victoria,53905,12.63,20
+2023,New South Wales,91917,10.67,21
+2023,Australian Capital Territory,43875,11.78,0
+2023,South Australia,33874,14.07,25
+2023,Tasmania,4690,15.28,11
+,,,,
+2024,Northern Territory,395250,10.93,42
+2024,Western Australia,162523,11.21,73
+2024,Queensland,308373,9.46,43
+2024,Victoria,51777,14.84,20
+2024,New South Wales,47960,7.09,20
+2024,Australian Capital Territory,23009,10.58,0
+2024,South Australia,8684,14.23,24
+2024,Tasmania,5990,13.13,11
